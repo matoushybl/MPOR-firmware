@@ -2,3 +2,6 @@
 *.elf
 *.bin
 *.hex
+/cmake-build-debug/
+/cmake-build-default/
+/cmake-build-release/
