@@ -23,18 +23,15 @@
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/cm3/systick.h>
 
-extern "C" {
-    extern void initialise_monitor_handles(void);
-}
+#include "printf.h"
 
+void _putchar(char character) {}
 
 int main() {
     rcc_clock_setup_in_hsi_out_48mhz();
     rcc_periph_clock_enable(RCC_GPIOA);
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
     gpio_set(GPIOA, GPIO1);
-
-    initialise_monitor_handles();
 
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;

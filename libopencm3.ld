@@ -4,5 +4,5 @@ MEMORY
     ram (xrw)  : ORIGIN = 0x20000000, LENGTH = 32K
 }
 
-INCLUDE libopencm3_stm32f0.ld
+INCLUDE cortex-m-generic.ld
 
