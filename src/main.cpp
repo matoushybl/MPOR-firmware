@@ -19,31 +19,27 @@
  */
 
 #include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
-#include <libopencm3/cm3/nvic.h>
-#include <libopencm3/cm3/systick.h>
 
 #include "printf.h"
-
-void _putchar(char character) {}
+#include "Logger.h"
+#include "SysTick.h"
+#include "ServoTimer.h"
+#include "NRF24.h"
 
 int main() {
     rcc_clock_setup_in_hsi_out_48mhz();
-    rcc_periph_clock_enable(RCC_GPIOA);
-    gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
-    gpio_set(GPIOA, GPIO1);
 
-    systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
-    STK_CVR = 0;
+    Logger::init();
+    SysTick::init();
+    ServoTimer::init();
 
-    systick_set_reload(rcc_ahb_frequency / 8 / 1000 * 100);
-    systick_counter_enable();
-    systick_interrupt_enable();
+    NRF24 radio;
+    SysTick::delay(1000);
 
-    while(1);
+    while (true) {
+        auto config = radio.readSingleByteRegister(0x00);
+        printf("status: %x reg: %x\n", radio.getStatus().raw, config);
+        SysTick::delay(10);
+    }
     return 0;
-}
-
-void sys_tick_handler() {
-    gpio_toggle(GPIOA, GPIO1);
 }
