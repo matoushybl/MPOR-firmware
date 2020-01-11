@@ -52,77 +52,77 @@ enum class Register: uint8_t {
 
 union Config {
     struct {
-        uint8_t :1;
-        uint8_t maskRXDR: 1;
-        uint8_t maskTXDS: 1;
-        uint8_t maskMaxRT: 1;
-        uint8_t enableCRC: 1;
-        uint8_t CRCScheme: 1;
-        uint8_t powerUp: 1;
         uint8_t primRX: 1; // RX/TX
+        uint8_t powerUp: 1;
+        uint8_t CRCScheme: 1;
+        uint8_t enableCRC: 1;
+        uint8_t maskMaxRT: 1;
+        uint8_t maskTXDS: 1;
+        uint8_t maskRXDR: 1;
+        uint8_t :1;
     };
     uint8_t raw;
 };
 
 union EnableAutoAck {
     struct {
-        uint8_t :3;
-        uint8_t pipe5: 1;
-        uint8_t pipe4: 1;
-        uint8_t pipe3: 1;
-        uint8_t pipe2: 1;
-        uint8_t pipe1: 1;
         uint8_t pipe0: 1;
+        uint8_t pipe1: 1;
+        uint8_t pipe2: 1;
+        uint8_t pipe3: 1;
+        uint8_t pipe4: 1;
+        uint8_t pipe5: 1;
+        uint8_t :3;
     };
     uint8_t raw;
 };
 
 union EnableRXAddress {
     struct {
-        uint8_t :3;
-        uint8_t pipe5: 1;
-        uint8_t pipe4: 1;
-        uint8_t pipe3: 1;
-        uint8_t pipe2: 1;
-        uint8_t pipe1: 1;
         uint8_t pipe0: 1;
+        uint8_t pipe1: 1;
+        uint8_t pipe2: 1;
+        uint8_t pipe3: 1;
+        uint8_t pipe4: 1;
+        uint8_t pipe5: 1;
+        uint8_t :3;
     };
     uint8_t raw;
 };
 
 union SetupAddressWidth {
     struct {
-        uint8_t :6;
         uint8_t addressWidth: 1;
+        uint8_t :6;
     };
     uint8_t raw;
 };
 
 union SetupRetransmission {
     struct {
-        uint8_t autoRetransmitDelay: 4;
         uint8_t autoRetransmitCount: 4;
+        uint8_t autoRetransmitDelay: 4;
     };
     uint8_t raw;
 };
 
 union RFChannel {
     struct {
-        uint8_t: 1;
         uint8_t channel: 7;
+        uint8_t: 1;
     };
     uint8_t raw;
 };
 
 union RFSetup {
     struct {
-        uint8_t enableContinuousTransmit: 1;
-        uint8_t: 1;
-        uint8_t rfDRLow: 1;
-        uint8_t pllLock: 1;
-        uint8_t rfDRHigh: 1;
-        uint8_t rfPower: 2;
         uint8_t :1;
+        uint8_t rfPower: 2;
+        uint8_t rfDRHigh: 1;
+        uint8_t pllLock: 1;
+        uint8_t rfDRLow: 1;
+        uint8_t: 1;
+        uint8_t enableContinuousTransmit: 1;
 
     };
     uint8_t raw;
@@ -130,73 +130,72 @@ union RFSetup {
 
 union Status {
     struct {
-        uint8_t: 1;
-        uint8_t RXDataReadyInterrupt: 1;
-        uint8_t TXDataSentInterrupt: 1;
-        uint8_t maxRetransmitsInterrupt: 1;
-        uint8_t RXPipeNumber: 3;
         uint8_t TXFull: 1;
+        uint8_t RXPipeNumber: 3;
+        uint8_t maxRetransmitsInterrupt: 1;
+        uint8_t TXDataSentInterrupt: 1;
+        uint8_t RXDataReadyInterrupt: 1;
+        uint8_t: 1;
     };
     uint8_t raw;
 };
 
 union ObserveTX {
     struct {
-        uint8_t packetLossCount: 4;
         uint8_t retransmittedCount: 4;
+        uint8_t packetLossCount: 4;
     };
     uint8_t raw;
 };
 
 union RPD {
     struct {
+        uint8_t receivedPowerDetector: 1;
         uint8_t: 7;
-        uint8_t receivedPowerDetector: 4;
     };
     uint8_t raw;
 };
 
 union RXPipeDataWidth {
     struct {
+        uint8_t dataWidth: 7;
         uint8_t: 2;
-        uint8_t dataWidth: 4;
     };
     uint8_t raw;
 };
 
 union FIFOStatus {
     struct {
-        uint8_t: 1;
-        uint8_t TXReuse: 1;
-        uint8_t TXFull: 1;
-        uint8_t TXEmpty: 1;
-        uint8_t: 2;
-        uint8_t RXFull: 1;
         uint8_t RXEmpty: 2;
-
+        uint8_t RXFull: 1;
+        uint8_t: 2;
+        uint8_t TXEmpty: 1;
+        uint8_t TXFull: 1;
+        uint8_t TXReuse: 1;
+        uint8_t: 1;
     };
     uint8_t raw;
 };
 
 union DynamicPayloadLength {
     struct {
-        uint8_t: 2;
-        uint8_t enableForPipe0: 1;
-        uint8_t enableForPipe1: 1;
-        uint8_t enableForPipe2: 1;
-        uint8_t enableForPipe3: 1;
-        uint8_t enableForPipe4: 1;
         uint8_t enableForPipe5: 1;
+        uint8_t enableForPipe4: 1;
+        uint8_t enableForPipe3: 1;
+        uint8_t enableForPipe2: 1;
+        uint8_t enableForPipe1: 1;
+        uint8_t enableForPipe0: 1;
+        uint8_t: 2;
     };
     uint8_t raw;
 };
 
 union Feature {
     struct {
-        uint8_t: 5;
-        uint8_t enableDynamicPayloadLength: 1;
-        uint8_t enablePayloadWithAck: 1;
         uint8_t enableNoAckTX: 1;
+        uint8_t enablePayloadWithAck: 1;
+        uint8_t enableDynamicPayloadLength: 1;
+        uint8_t: 5;
     };
     uint8_t raw;
 };
@@ -204,14 +203,25 @@ union Feature {
 class NRF24 {
 public:
     explicit NRF24();
-    uint8_t readSingleByteRegister(uint8_t reg);
+    uint8_t readSingleByteRegister(Register reg);
+    uint8_t writeSingleByteRegister(Register reg, uint8_t value);
+    uint8_t readMultibyteRegister(Register reg, uint8_t *output, uint8_t length);
+    uint8_t writeMultibyteRegister(Register reg, uint8_t *input, uint8_t length);
 
-    Status getStatus();
+    void setFrequencyMHz(uint16_t frequency);
+    void setTransmitAddress(uint8_t *address);
+    void setReceiveAddress(uint8_t pipe, uint8_t *address);
+    void setPayloadWidth(uint8_t pipe, uint8_t width);
+    FIFOStatus readFIFOStatus();
+    void reset();
+
+    void readRxPayload(uint8_t *output, uint8_t length);
+    void writeTxPayload(uint8_t *output, uint8_t length);
+
+    Status readStatus();
 private:
-    uint8_t writeSingleByteRegister();
 
     uint8_t status = 0;
-
     uint8_t spi_xfer8(uint8_t data);
 };
 

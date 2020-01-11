@@ -36,9 +36,25 @@ int main() {
     NRF24 radio;
     SysTick::delay(1000);
 
+    radio.reset();
+    radio.setFrequencyMHz(2500);
+    radio.setPayloadWidth(0, 5);
+    radio.setPayloadWidth(1, 5);
+    radio.setTransmitAddress((uint8_t *) "prdel");
+    radio.setReceiveAddress(1, (uint8_t *) "prdyy");
+
     while (true) {
-        auto config = radio.readSingleByteRegister(0x00);
-        printf("status: %x reg: %x\n", radio.getStatus().raw, config);
+//        radio.writeSingleByteRegister(Register::EnableRXAddr, addressEnable.raw);
+
+//        config.raw = radio.readSingleByteRegister(0x00);
+//        config.powerUp = 1;
+//        radio.writeSingleByteRegister(0x00, config.raw);
+//        auto config = radio.readSingleByteRegister(Register::RXPayloadWidthPipe1);
+        auto fifo = radio.readFIFOStatus();
+        printf("status: %x reg: %x\n", fifo.raw, 0);
+        if ((fifo.raw & 0b00010000) > 0) {
+            radio.writeTxPayload((uint8_t *) "prdel", 5);
+        }
         SysTick::delay(10);
     }
     return 0;
