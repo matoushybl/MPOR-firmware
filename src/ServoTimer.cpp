@@ -9,6 +9,7 @@
 
 void ServoTimer::init() {
     rcc_periph_clock_enable(RCC_GPIOA);
+    gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO0 | GPIO1 | GPIO2 | GPIO3);
     gpio_set_af(GPIOA, GPIO_AF2, GPIO0 | GPIO1 | GPIO2 | GPIO3);
     rcc_periph_clock_enable(RCC_TIM2);
     rcc_periph_reset_pulse(RST_TIM2);
@@ -28,10 +29,12 @@ void ServoTimer::init() {
     timer_set_oc_mode(TIM2, TIM_OC3, TIM_OCM_PWM1);
     timer_set_oc_mode(TIM2, TIM_OC4, TIM_OCM_PWM1);
 
-    timer_set_oc_value(TIM2, TIM_OC1, 500);
+    timer_set_oc_value(TIM2, TIM_OC1, 1000);
     timer_set_oc_value(TIM2, TIM_OC2, 800);
     timer_set_oc_value(TIM2, TIM_OC3, 500);
     timer_set_oc_value(TIM2, TIM_OC4, 500);
+
+    timer_clear_flag(TIM2, TIM_SR_UIF);
 
     timer_enable_counter(TIM2);
 }

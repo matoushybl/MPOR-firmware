@@ -29,6 +29,12 @@ uint64_t SysTick::millis() {
     return systick_millis;
 }
 
+void SysTick::delayMicroseconds(uint64_t us) {
+    for (int i = 0; i < us * 48; i++) {	/* Wait a bit. */
+        __asm__("nop");
+    }
+}
+
 void sys_tick_handler() {
     SysTick::systick_millis++;
 }

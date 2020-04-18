@@ -14,6 +14,8 @@ public:
     static uint64_t millis();
     static void delay(uint32_t milliseconds);
 
+    static void delayMicroseconds(uint64_t us);
+
     static volatile uint64_t systick_millis;
 };
 
