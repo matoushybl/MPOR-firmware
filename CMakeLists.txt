@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5.0)
-project(pwm C CXX ASM)
+project(Spitfire C CXX ASM)
 
 IF(NOT CMAKE_CROSSCOMPILING)
     message(FATAL_ERROR "Cross compiling only. Please use -DCMAKE_TOOLCHAIN_FILE=/PATH/TO/TOOLCHAIN_FILE .")

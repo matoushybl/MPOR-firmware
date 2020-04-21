@@ -2,7 +2,7 @@
 // Created by Matous Hybl on 11/01/2020.
 //
 
-#include "ServoTimer.h"
+#include "../include/plane/ServoTimer.h"
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/timer.h>
@@ -37,4 +37,21 @@ void ServoTimer::init() {
     timer_clear_flag(TIM2, TIM_SR_UIF);
 
     timer_enable_counter(TIM2);
+}
+
+void ServoTimer::setPosition(Servo servo, int8_t position) {
+    switch (servo) {
+        case Servo::Rudder:
+            timer_set_oc_value(TIM2, TIM_OC2, (position * 900) / 127 + 1350);
+            break;
+        case Servo::Elevator:
+            timer_set_oc_value(TIM2, TIM_OC1, (position * 900) / 127 + 1350);
+            break;
+        case Servo::LeftAileron:
+            timer_set_oc_value(TIM2, TIM_OC4, (position * 900) / 127 + 1350);
+            break;
+        case Servo::RightAileron:
+            timer_set_oc_value(TIM2, TIM_OC3, (position * 900) / 127 + 1350);
+            break;
+    }
 }

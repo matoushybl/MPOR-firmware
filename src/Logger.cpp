@@ -2,14 +2,14 @@
 // Created by Matous Hybl on 11/01/2020.
 //
 
-#include "Logger.h"
+#include "../include/plane/Logger.h"
 
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/dma.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/cm3/nvic.h>
-#include "printf.h"
+#include "../include/plane/printf.h"
 
 extern "C" {
 void _putchar(char character);

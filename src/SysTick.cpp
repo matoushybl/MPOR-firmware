@@ -2,7 +2,7 @@
 // Created by Matous Hybl on 11/01/2020.
 //
 
-#include "SysTick.h"
+#include "../include/plane/SysTick.h"
 #include <libopencm3/cm3/systick.h>
 
 extern "C" {
@@ -30,7 +30,7 @@ uint64_t SysTick::millis() {
 }
 
 void SysTick::delayMicroseconds(uint64_t us) {
-    for (int i = 0; i < us * 48; i++) {	/* Wait a bit. */
+    for (uint64_t i = 0; i < us * 48; i++) {	/* Wait a bit. */
         __asm__("nop");
     }
 }
